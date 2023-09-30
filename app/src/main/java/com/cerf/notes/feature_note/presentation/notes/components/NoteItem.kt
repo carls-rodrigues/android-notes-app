@@ -74,7 +74,7 @@ fun NoteItem(
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = note.title,
+                text = note.content,
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onSurface,
                 maxLines = 10,
@@ -82,7 +82,7 @@ fun NoteItem(
             )
         }
         IconButton(
-            onClick = { /*TODO*/ },
+            onClick = onDeleteClick,
             modifier = Modifier.align(Alignment.BottomEnd)
         ) {
             Icon(

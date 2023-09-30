@@ -2,17 +2,18 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id("com.google.dagger.hilt.android")
+
 }
 
 android {
     namespace = "com.cerf.notes"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.cerf.notes"
-        minSdk = 24
-        targetSdk = 33
+        minSdk = 26
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -32,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -50,6 +51,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    ndkVersion = "23.1.7779620"
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
@@ -63,6 +66,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.2-alpha")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -72,25 +76,25 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     // Compose dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-beta01")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha09")
-    implementation("androidx.compose.material:material-icons-extended:1.5.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-alpha02")
+    implementation("androidx.navigation:navigation-compose:2.7.3")
+    implementation("androidx.compose.material:material-icons-extended:1.5.2")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     //Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.37")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+//    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     // Room
-    implementation("androidx.room:room-runtime:2.3.0")
-    kapt("androidx.room:room-compiler:2.3.0")
+    implementation("androidx.room:room-runtime:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
 
     // Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:2.3.0")
+    implementation("androidx.room:room-ktx:2.5.2")
 }

@@ -40,6 +40,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cerf.notes.feature_note.presentation.notes.components.NoteItem
 import com.cerf.notes.feature_note.presentation.notes.components.OrderSection
+import com.cerf.notes.feature_note.presentation.utils.Screen
+import com.cerf.notes.ui.theme.DarkGray
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,19 +57,29 @@ fun NotesScreen(
     Scaffold (
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(Screen.AddEditNoteScreen.route)
+                },
                 containerColor = Color.White,
 
             ) {
               Icon(imageVector = Icons.Default.Add, contentDescription = "Add note")
             }
         },
+        containerColor = DarkGray,
         snackbarHost = { SnackbarHost(snackbarHostState) },
-    ) { innerPadding ->
+    ) {
+        innerPadding ->
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(
+                    start = 16.dp,
+                    top = innerPadding.calculateTopPadding(),
+                    end = 16.dp,
+                    bottom = 16.dp
+                ),
         ) {
             Row (
                 modifier = Modifier.fillMaxWidth(),
@@ -76,7 +88,8 @@ fun NotesScreen(
             ){
                 Text(
                     text = "Your notes",
-                    style = MaterialTheme.typography.headlineMedium
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = Color.White
                 )
                 IconButton(
                     onClick = {
@@ -103,12 +116,17 @@ fun NotesScreen(
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(modifier = Modifier.fillMaxSize()
+            ) {
                 items(state.notes) {
                     note ->
                     NoteItem(
                         note = note,
-                        modifier = Modifier.fillMaxWidth().clickable {  },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                navController.navigate(Screen.AddEditNoteScreen.route + "?noteId=${note.id}&noteColor=${note.color}")
+                            },
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {
